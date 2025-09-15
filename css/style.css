@@ -190,12 +190,26 @@ nav {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   border-bottom: 2px solid transparent;
+  cursor: pointer;
 }
 
 .skill-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid #cc3333;
+}
+
+.skill-item.active {
+  background-color: #ffcccc;
+}
+
+/* Section divider */
+.section-divider {
+  width: 90%;
+  height: 2px;
+  background: #cc3333;
+  margin: 50px auto;
+  position: relative;
 }
 
 /* Education page styles */
