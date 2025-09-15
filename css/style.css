@@ -23,6 +23,71 @@ h2 {
   margin-bottom: 20px;
 }
 
+/* Dark theme enhancements */
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-theme header,
+body.dark-theme nav {
+  background-color: #121212;
+  border-color: #444;
+}
+
+body.dark-theme #menu li {
+  color: #f0f0f0;
+}
+
+body.dark-theme #menu li:hover,
+body.dark-theme #menu li.active {
+  border-bottom: 2px solid #cc3333;
+  color: #cc3333;
+}
+
+body.dark-theme .about-me,
+body.dark-theme #content,
+body.dark-theme .about-card,
+body.dark-theme .skill-item,
+body.dark-theme .project-card,
+body.dark-theme .card-front,
+body.dark-theme .card-back {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .about-me p,
+body.dark-theme .about-card p,
+body.dark-theme .project-description {
+  color: #e0e0e0;
+}
+
+body.dark-theme .about-card h3,
+body.dark-theme .project-title {
+  color: #ffffff;
+}
+
+body.dark-theme .project-category,
+body.dark-theme .project-number {
+  color: #bbbbbb;
+}
+
+body.dark-theme .education-entry:not(:last-child) {
+  border-color: #444;
+}
+
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border-color: #444;
+}
+
+body.dark-theme .skill-item.active {
+  background-color: #331111;
+}
+
 /* Header styles */
 header {
   width: 100%;
@@ -445,3 +510,4 @@ nav {
     margin: 30px auto;
   }
 }
+

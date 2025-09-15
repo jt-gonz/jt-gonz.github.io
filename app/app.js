@@ -2,7 +2,6 @@ const contentDiv = document.getElementById("content");
 const menuItems = document.querySelectorAll("#menu li");
 
 function loadContent(filepath, liClicked) {
-    // Add fade out effect before loading
     contentDiv.style.opacity = '0.3';
     contentDiv.style.transform = 'translateY(10px)';
 
@@ -14,13 +13,11 @@ function loadContent(filepath, liClicked) {
             menuItems.forEach(li => li.classList.remove("active"));
             if (liClicked) liClicked.classList.add("active");
 
-            // Fade in effect after loading
             setTimeout(() => {
                 contentDiv.style.opacity = '1';
                 contentDiv.style.transform = 'translateY(0)';
             }, 100);
 
-            // Setup all dynamic effects
             setupSkillsClickHandler();
             setupProjectCardEffects();
             setupTypingEffect();
@@ -45,35 +42,12 @@ window.addEventListener("DOMContentLoaded", () => {
         loadContent(filepath, defaultLi);
     }
 
-    // Initialize all effects on page load
     setupTypingEffect();
     setupMouseTracker();
     setupThemeToggle();
 });
 
-// Language switcher animation
-document.addEventListener('DOMContentLoaded', () => {
-  const navUl = document.querySelector('.nav-ul');
-  const langLinks = document.querySelectorAll('.nav-li a');
 
-  if (navUl) navUl.classList.add('en');
-
-  langLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-
-      if (link.parentNode === langLinks[0].parentNode) {
-        navUl.classList.remove('es');
-        navUl.classList.add('en');
-      } else {
-        navUl.classList.remove('en');
-        navUl.classList.add('es');
-      }
-    });
-  });
-});
-
-// WORK - Existing functions
 function flipCard(card) {
     card.classList.toggle('flipped');
 }
@@ -108,7 +82,6 @@ function setupTypingEffect() {
   titles.forEach(title => {
     const originalText = title.textContent;
     title.textContent = '';
-    title.style.borderRight = '2px solid #cc3333';
     title.style.animation = 'blink 1s infinite';
 
     let index = 0;
@@ -128,7 +101,6 @@ function setupTypingEffect() {
 }
 
 function setupMouseTracker() {
-  // Create cursor follower
   const cursor = document.createElement('div');
   cursor.classList.add('cursor-follower');
   document.body.appendChild(cursor);
@@ -138,7 +110,6 @@ function setupMouseTracker() {
     cursor.style.top = e.clientY + 'px';
   });
 
-  // Add hover effects to interactive elements
   const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-item');
   interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
@@ -166,6 +137,8 @@ function setupThemeToggle() {
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.body.classList.add(savedTheme + '-theme');
   themeToggle.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+  
+  applyThemeToElements(savedTheme);
 
   themeToggle.addEventListener('click', () => {
     const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
@@ -176,9 +149,29 @@ function setupThemeToggle() {
 
     themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
     localStorage.setItem('theme', newTheme);
-
-    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    
+    applyThemeToElements(newTheme);
   });
+}
+
+function applyThemeToElements(theme) {
+  const isDark = theme === 'dark';
+  
+  document.documentElement.style.setProperty('--transition-speed', '0.3s');
+  
+  document.querySelectorAll('input, textarea, select, button:not(.theme-toggle)').forEach(el => {
+    if (isDark) {
+      el.style.backgroundColor = el.tagName.toLowerCase() === 'button' ? '#333333' : '#2a2a2a';
+      el.style.color = '#ffffff';
+      el.style.borderColor = '#444444';
+    } else {
+      el.style.backgroundColor = '';
+      el.style.color = '';
+      el.style.borderColor = '';
+    }
+  });
+  
+  document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
 }
 
 const dynamicStyles = `
@@ -216,23 +209,24 @@ const dynamicStyles = `
       transform: scale(1.1);
     }
     
-    .dark-theme {
-      background-color: #1a1a1a !important;
-      color: #ffffff !important;
+    .dark-theme .theme-toggle {
+      background: rgba(40, 40, 40, 0.9);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
     
-    .dark-theme .project-card,
-    .dark-theme .skill-item,
-    .dark-theme .about-card {
-      background-color: #2d2d2d !important;
-      color: #ffffff !important;
-      border-color: #444 !important;
+    .dark-theme a:not(.project-link), 
+    .dark-theme h1 span, 
+    .dark-theme #menu li.active,
+    .dark-theme #menu li:hover {
+      color: #cc3333;
     }
     
-    .dark-theme header,
-    .dark-theme nav {
-      background-color: #1a1a1a !important;
-      border-color: #444 !important;
+    .dark-theme .project-link {
+      color: #ff6666;
+    }
+    
+    .dark-theme .project-link::after {
+      background-color: #ff6666;
     }
   </style>
 `;
